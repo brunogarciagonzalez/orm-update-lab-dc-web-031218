@@ -50,8 +50,7 @@ class Student
     # saves an instance of the Student class to the database and then sets the given students `id` attribute
     # updates a record if called on an object that is already persisted
     if self.id
-      sql = "update students set name = ?, grade = ? where id = ?;"
-      DB[:conn].execute(sql, self.name, self.grade, self.id)
+      self.update
     else
       sql = <<-SQL
         INSERT INTO students (name, grade)
@@ -64,7 +63,7 @@ class Student
 
   def update
     # updates the record associated with a given instance
-    self.save
-    # ????? this method has half of the functionality of #save
+    sql = "update students set name = ?, grade = ? where id = ?;"
+    DB[:conn].execute(sql, self.name, self.grade, self.id)
   end
 end
